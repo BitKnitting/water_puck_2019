@@ -7,7 +7,7 @@ from machine import Timer, Pin
 
 WLAN_PROFILE = 'lib/wifi.dat'
 CONTENT_PREAMBLE = b"HTTP/1.0 200 OK \n\n   "
-WATERING_TIME = 15  # The number of minutes to keep the valve open.
+WATERING_TIME = 20  # The number of minutes to keep the valve open.
 # KLUDGE - i couldn't get the wemos to callback if the period between callbacks was
 # > 7 minutes.  So Make the WATERING_TIME in increments of 5, with 5 being the lowest
 # amount of time.
@@ -106,8 +106,8 @@ class WaterPuck:
     # WATERING_TIME constant is set to 15 (for 15 minutes).
     #########################################################
 
-    def listen(self, ip=None, port=8006):
-        do_connect(self.ssid, self.password, ip)
+    def listen(self, port):
+        do_connect(self.ssid, self.password)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind(('', port))
